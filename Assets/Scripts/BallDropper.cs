@@ -7,7 +7,7 @@ public class BallDropper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if the left mouse btton was pressed
+        // if the left mouse button was pressed
             
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
@@ -23,7 +23,17 @@ public class BallDropper : MonoBehaviour
         Vector3 spawnPosition = GetSpawnPosition();
 
         // create a ball at the position
-         Instantiate(BallPrefab, spawnPosition, Quaternion.identity); // what to create, where to create it, how to rotate
+        GameObject ball = Instantiate(BallPrefab, spawnPosition, Quaternion.identity); // what to create, where to create it, how to rotate
+
+         AddRandomForce(ball);
+    }
+
+    private void AddRandomForce(GameObject ball)
+    {
+        Rigidbody2D rigidbody = ball.GetComponent<Rigidbody2D>();
+
+        float randomHorizontalForce = Random.Range(-5f,5f);
+        rigidbody.AddForce(new Vector2(randomHorizontalForce, 0f), ForceMode2D.Impulse);
     }
 
     private Vector3 GetSpawnPosition()
